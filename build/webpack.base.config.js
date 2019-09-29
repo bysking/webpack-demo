@@ -1,6 +1,6 @@
 //  基础配置文件 会抽离dev prod配置文件的公共配置
 const path = require('path')
-const uitls = require('./utils')
+const utils = require('./utils')
 module.exports = {
   entry: {
     main: '@/main.js',
