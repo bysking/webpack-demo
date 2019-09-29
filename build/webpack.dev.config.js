@@ -12,7 +12,7 @@ module.exports = merge(webpackBaseConfig, {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'bysking-webpack-demo',
-      filename: '../index.html',
+      filename: '../dist/index.html',
       template: path.resolve(__dirname, './config/index.html'),
       injetc: false
     })
