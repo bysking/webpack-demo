@@ -2,7 +2,8 @@
 const path = require('path')
 module.exports = {
   entry: {
-    main: '@/main.js'
+    main: '@/main.js',
+    'vender-exten': '@/vender/common-module.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist/')
@@ -13,5 +14,4 @@ module.exports = {
       '@': path.join(__dirname, '../src') // 路径别名
     }
   }
-
 }

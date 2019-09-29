@@ -12,4 +12,4 @@
   打开新的终端执行：npx webpack （默认找到src/index.js进行打包然后输出到dist目录（如果不存在会创建））
 
 4. 安装webpack-dev-server: npm install webpack-dev-server --save-dev 开发者服务器，项目打包好之后是不是需要部署运行？而且他能解决本地运行跨域, 修改代码后进行热加载
-5. 
+5. https://www.cnblogs.com/vipzhou/p/9114090.html 模块化抽取
