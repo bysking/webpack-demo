@@ -13,3 +13,12 @@
 
 4. 安装webpack-dev-server: npm install webpack-dev-server --save-dev 开发者服务器，项目打包好之后是不是需要部署运行？而且他能解决本地运行跨域, 修改代码后进行热加载
 5. https://www.cnblogs.com/vipzhou/p/9114090.html 模块化抽取
+6. 处理依赖的子依赖
+npm install --save-dev webpack-transform-modules-plugin
+7. 样式解析处理，eslint:
+npm install eslint-loader --save-dev
+npm install eslint --save-dev
+npm install standard --save-dev
+npm install babel-eslint --save-dev
+npm install --save-dev eslint-plugin-html
+

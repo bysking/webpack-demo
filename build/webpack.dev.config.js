@@ -11,6 +11,34 @@ module.exports = merge(webpackBaseConfig, {
   output: {
     filename: '[name].js'
   },
+  module: {
+    rules: [
+      {
+        test: /\.(js|vue)$/,
+        loader: 'eslint-loader',
+        enforce: 'pre',
+        include: [path.resolve(__dirname, '../src')], // 用path.resolve(__dirname, '../src')
+        options: {
+          emitError: true,
+          emitWarning: true,
+          failOnError: true
+        }
+      },
+      {
+        test: /\.css$/,
+        use: ['vue-style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.(stylus|styl)$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          'postcss-loader',
+          'stylus-loader'
+        ]
+      }
+    ]
+  },
   plugins: [
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
