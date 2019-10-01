@@ -2,8 +2,11 @@
 
 const baseConfig = require('./webpack.base.config')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin') // 将CSS提取为独立的文件的插件，对每个包含css的js文件都会创建一个CSS文件，支持按需加载css和sourceMap
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const merge = require('webpack-merge')
 const path = require('path')
+const webpack = require('webpack')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -45,6 +48,7 @@ module.exports = merge(baseConfig, {
   },
   plugins: [
     // 自定义插件生成html模板文件
+
     // 定义生产环境的全局变量
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(process.env), // 给源代码全局传自定义的变量，还可以是自定义的文件
@@ -58,5 +62,15 @@ module.exports = merge(baseConfig, {
       chunkFilename: '[id].css',
       ignoreOrder: false,
     }),
+
+    new CleanWebpackPlugin(),
+
+    new CopyWebpackPlugin([ // 上一个清理完后需要把代码中赖的资源赋值到apicloud和webpack打包目录相同的目录层级
+      {
+        from: path.resolve(__dirname, '../static'), // 源
+        to: path.resolve(__dirname, '../widget/code/static'), // 目标
+        ignore: ['*.png']
+      }
+    ]),
   ],
 })
