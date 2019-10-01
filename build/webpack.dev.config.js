@@ -58,6 +58,7 @@ module.exports = merge(webpackBaseConfig, {
   devServer: { // 什么是跨域 https://blog.csdn.net/qq_38128179/article/details/84956552
     open: true,
     stats: 'errors-only',
+    public: 'localhost:4001',
     port: 4001,
     proxy: {
       '/apione': {
