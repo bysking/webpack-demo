@@ -32,5 +32,7 @@ No PostCSS Config // 需要添加配置文件
 安装模块依赖 postcss-px-to-viewport
 10. 生产环境配置
 npm install --save-dev mini-css-extract-plugin
-11. 下一次打包前清理上一次打包的文件
-npm install --save-dev clean-webpack-plugin
+11. 下一次打包前清理上一次打包的文件以及复制文件目录
+npm i --save-dev copy-webpack-plugin clean-webpack-plugin
+12. 代码压缩优化
+npm i --save-dev optimize-css-assets-webpack-plugin terser-webpack-plugin

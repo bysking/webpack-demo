@@ -8,6 +8,8 @@ const merge = require('webpack-merge')
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const TerserJSPlugin = require('terser-webpack-plugin')
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -76,9 +78,33 @@ module.exports = merge(baseConfig, {
 
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
-      filename: '../index111.html', // 注意与output.path以及publicPath的关系
+      filename: '../index.html', // 注意与output.path以及publicPath的关系
       template: path.resolve(__dirname, './config/index.html'),
       injetc: false
     }),
   ],
+  optimization: { // 代码压缩丑化
+    splitChunks: { // 分片，异步加载
+      cacheGroups: {// 缓存组
+        commons: { // 按需打包抽离公共模块
+          test: /[\\/]node_modules[\\/]/, // 只抽取引入的node_modules文件的公共模块
+          name: 'vender-exten', // 要缓存的 分隔出来的 chunk 名称
+          chunks: 'all' // 对所有的chunk都进行缓存
+        }
+      }
+    },
+    runtimeChunk: {
+      name: 'runtime'
+    // 当更改app的时候runtime与（被分出的动态加载的代码）0.01e47fe5.js的名称(hash)不会改变，main的名称(hash)会改变。
+    // 当更改component.js，main的名称(hash)不会改变，runtime与 (动态加载的代码) 0.01e47fe5.js的名称(hash)会改变。
+
+    },
+    minimizer: [
+      new TerserJSPlugin({ // js压缩
+        cache: true,
+        parallel: true
+      }),
+      new OptimizeCSSAssetsPlugin({}) // css压缩
+    ]
+  }
 })
