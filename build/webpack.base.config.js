@@ -2,7 +2,14 @@
 const path = require('path')
 const utils = require('./utils')
 const VueLoaderPlugin = require('vue-loader/lib/plugin') // 首先最新的webpack使用vue-loader时还要在配置中添加 Vue Loader 的插件
-const WebpackNotifierPlugin = require('webpack-notifier');
+const WebpackNotifierPlugin = require('webpack-notifier')
+const webpackTransformModulesPlugin = require('webpack-transform-modules-plugin')
+// 这个插件主要是读取应用 package.json 中的 compileDependencies 字段的值（用于指定应用需要后编译哪些依赖包），
+// 而且还能解决嵌套后编译包的问题，因为开发者只需要关注自己依赖需要后编译的包，而不需要关注依赖的依赖包，
+// 这样就能构成一条生态链。
+
+
+
 
 module.exports = {
   entry: {
@@ -66,7 +73,8 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(), // 首先最新的webpack使用vue-loader时还要在配置中添加 Vue Loader 的插件
-    new WebpackNotifierPlugin({title: '打包提示。。。'})
+    new WebpackNotifierPlugin({title: '打包提示。。。'}),
+    new webpackTransformModulesPlugin() // https://www.jianshu.com/p/d9fdf666e5fa
   ],
   resolve: { // 配置路径别名
     extensions: ['.js'], // 别名可使用范围？
