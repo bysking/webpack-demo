@@ -30,3 +30,5 @@ npm install --save-dev css-loader
 9. stylus模块 npm install --save-dev stylus
 No PostCSS Config // 需要添加配置文件
 安装模块依赖 postcss-px-to-viewport
+10. 生产环境配置
+npm install --save-dev mini-css-extract-plugin
