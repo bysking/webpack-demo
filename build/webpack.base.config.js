@@ -2,6 +2,8 @@
 const path = require('path')
 const utils = require('./utils')
 const VueLoaderPlugin = require('vue-loader/lib/plugin') // 首先最新的webpack使用vue-loader时还要在配置中添加 Vue Loader 的插件
+const WebpackNotifierPlugin = require('webpack-notifier');
+
 module.exports = {
   entry: {
     main: '@/main.js',
@@ -63,7 +65,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin() // 首先最新的webpack使用vue-loader时还要在配置中添加 Vue Loader 的插件
+    new VueLoaderPlugin(), // 首先最新的webpack使用vue-loader时还要在配置中添加 Vue Loader 的插件
+    new WebpackNotifierPlugin({title: '打包提示。。。'})
   ],
   resolve: { // 配置路径别名
     extensions: ['.js'], // 别名可使用范围？
