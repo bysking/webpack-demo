@@ -21,4 +21,12 @@ npm install eslint --save-dev
 npm install standard --save-dev
 npm install babel-eslint --save-dev
 npm install --save-dev eslint-plugin-html
-
+8. // 样式处理的loader
+npm install --save-dev css-loader
+  postcss-loader
+  style-loader
+  vue-style-loader
+  stylus-loader
+9. stylus模块 npm install --save-dev stylus
+No PostCSS Config // 需要添加配置文件
+安装模块依赖 postcss-px-to-viewport
