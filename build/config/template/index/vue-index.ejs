@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./static/libs/cube.min.css" type="text/css" />
+    <% htmlWebpackPlugin.files.css.forEach(function(item){%>
+    <link rel="stylesheet" href="<%= item %>">
+    <% }) %>
+    <script src="./static/libs/fastclick.js"></script>
+    <script src="./static/libs/polyfill.min.js"></script>
+    <script src="./static/libs/vue.min.js"></script>
+    <script src="./static/libs/vuex.min.js"></script>
+    <script src="./static/libs/vue-router.min.js"></script>
+    <script src="./static/libs/iconfont.js"></script>
+    <script src="./static/libs/md5.min.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+    <% htmlWebpackPlugin.files.js.forEach(function(item){%>
+    <script type="text/javascript" src="<%= item %>"></script>
+    <% }) %>
+</body>
+
+</html>

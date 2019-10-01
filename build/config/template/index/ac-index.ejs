@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <title>11111</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no, email=no, date=no, address=no">
+</head>
+
+<body>
+  <div id="app"></div>
+  <% if (env === 'dev') { %>
+  <script src="./localIp.js"></script>
+  <% } %>
+  <script src="./util.js"></script>
+  <script>
+    var _env = '<%= env %>'; // 环境
+    var _system; // 系统
+    var _enterUrl = window.enterUrl || 'widget://code/index.html';
+    var _isShowUpgradeTip = false; // 是否显示升级提示
+    var _hasEntered = false; // 是否已进入主界面
+
+    apiready = function () {
+      $util.log('env:', _env)
+      init();
+      if (_env === 'dev') {
+        enter();
+      } else {
+        checkVersion();
+      }
+    }
+
+    // 初始化配置
+    function init () {
+      _system = api.systemType
+
+      api.parseTapmode();
+
+      // 设置状态栏样式
+      api.setStatusBarStyle({
+        style: "dark"
+      });
+
+      // 保持屏幕长亮
+      api.setKeepScreenOn({
+        keepOn: true
+      });
+
+      // api.addEventListener({
+      //     name: 'keyback'
+      //   },
+      //   function (ret, err) {
+      //     api.closeWidget({}); // 应用管理关闭指定widget，也可以关闭应用
+      //   }
+      // );
+
+      // 监听网络
+      api.addEventListener({
+          name: "offline"
+        },
+        function (ret, err) {
+          api.alert({
+              msg: "网络连接异常，请确保网络正常后，再重试。"
+            },
+            function (ret, err) {}
+          );
+        }
+      );
+
+      // 云修复
+      api.addEventListener({
+          name: "smartupdatefinish"
+        },
+        function (ret, err) {
+          api.rebootApp();
+        }
+      );
+
+      api.addEventListener({
+        name: 'resume'
+      }, function (ret, err) {
+        if (_env === 'dev') {
+          return
+        }
+
+        if (_system === 'ios' || !_isShowUpgradeTip) {
+          checkVersion();
+        }
+      });
+    }
+
+    function enter() { // 打开页面
+      // 移除启动页
+      api.removeLaunchView({
+        animation: {
+          type: "fade",
+          duration: 400
+        }
+      });
+
+      if (!_hasEntered) {
+        openWin({
+          url: _enterUrl,
+          reload: true
+        });
+        _hasEntered = true
+      }
+    }
+
+    function openWin(data) {
+      api.openWin({
+        name: 'index',
+        url: data.url,
+        pageParam: data.pageParam,
+        animation: data.animation ? data.animation : null,
+        allowEdit: !!data.allowEdit,
+        slidBackEnabled: !!data.slidBackEnabled,
+        reload: !!data.reload,
+        bounces: !!data.bounces
+      });
+    }
+
+    // 检查版本
+    function checkVersion() {
+      var hasNewVersion = false
+      var currACVersion = api.appVersion
+
+      api.readFile({
+        path: 'widget://res/version.txt'
+      }, function (ret, err) {
+        $util.log('loadVersion: ret:', ret, 'err:', err)
+        if (err || !ret.data) {
+          showUpgrade(hasNewVersion);
+          return;
+        }
+
+        var localVer = ret.data + '(' + currACVersion + ')';
+
+        api.ajax({
+          url: 'https://img.loock.cn/app/versions/ydzs_' + _env + '_version.txt?r=' + Math.random(),
+          method: 'get',
+          timeout: 5,
+          encode: false,
+          charset: 'utf-8',
+        }, function (ret2, err2) {
+          $util.log('ydzs_version: ret2:', ret2, 'err2:', err2)
+
+          if (err2 || !ret2 || !ret2.need_to_update || ret2.need_to_update.length === 0) {
+            showUpgrade(hasNewVersion);
+            return;
+          }
+
+          hasNewVersion = ret2.need_to_update.indexOf(api.appVersion) >= 0
+          showUpgrade(hasNewVersion, localVer, ret2);
+        });
+      });
+    }
+
+    // 显示升级提示
+    function showUpgrade(hasNewVersion, localVer, data) {
+      if (!hasNewVersion) {
+        enter()
+        checkSmartUpdate()
+        return
+      }
+
+      if (localVer && data) {
+        api.alert({
+          title: '有新版本啦',
+          msg: '当前版本：' + localVer + "\n" + '新版本：' + data.lastest,
+          buttons: ["前往下载"]
+        }, function (ret, err) {
+          if (_system === 'ios') {
+            var openAppStore = api.require('openAppStore');
+            openAppStore.appStore({
+              appID: data.ios_id
+            });
+          } else {
+            enterUpgrade(data.android_url);
+          }
+          _isShowUpgradeTip = true;
+        });
+      }
+    }
+
+    // 进入升级页面
+    function enterUpgrade(url) {
+      var params = {
+        name: 'upgrade',
+        url: url,
+        bounces: false,
+        vScrollBarEnabled: false,
+        hScrollBarEnabled: false,
+        animation: {
+          type: "push", //动画类型（详见动画类型常量）
+          subType: "from_right", //动画子类型（详见动画子类型常量）
+          duration: 300 //动画过渡时间，默认300毫秒
+        },
+        rect: {
+          x: 0,
+          y: 25,
+          w: 'auto',
+          h: 'auto',
+          marginLeft: 0,
+          marginTop: 0,
+          marginBottom: 0,
+          marginRight: 0
+        }
+      };
+
+      if (_system === 'android') {
+        api.addEventListener({
+          name: 'keyback'
+        }, function (ret, err) {
+          api.closeWidget({})
+        });
+      }
+
+      api.openWin(params);
+    }
+
+    // 检测云修复
+    function checkSmartUpdate () {
+      var mam = api.require('mam')
+      mam.checkSmartUpdate(function (res, err) {
+        $util.log('checkSmartUpdate res:', res, 'err:', err)
+        if (err || !res || !res.packages || res.packages.length === 0) {
+          return
+        }
+
+        mam.startSmartUpdate(function (res2, err2) {
+          $util.log('startSmartUpdate res2:', res2, 'err2:', err2)
+          if (res2.state === 4) {
+            checkSmartUpdate()
+            return
+          }
+
+          var updateProgress = (res2.current / res2.total) * res2.progress
+          $util.log('this.updateProgress:', updateProgress)
+          if (updateProgress >= 100) {
+            api.rebootApp()
+          }
+        })
+      })
+    }
+  </script>
+</body>
+
+</html>

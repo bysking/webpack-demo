@@ -44,7 +44,7 @@ module.exports = merge(webpackBaseConfig, {
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../dist/index.html',
-      template: path.resolve(__dirname, './config/index.html'),
+      template: path.resolve(__dirname, './config/index.ejs'),
       injetc: false
     }),
     new webpack.DefinePlugin({
