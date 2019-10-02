@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --hot --inline --compress --content-base ./dist --config build/webpack.dev.config.js --host 0.0.0.0",
+    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./dist --config build/webpack.dev.config.js --host 0.0.0.0",
     "test": "webpack --config build/webpack.dev.config.js",
-    "bysking": "webpack --config build/webpack.dev.config.js",
-    "build": "cross-env env=dev webpack --config build/webpack.prod.config.js"
+    "bysking": "cross-env env=dev webpack --config build/webpack.dev.config.js",
+    "build": "cross-env env=prod webpack --config build/webpack.prod.config.js"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "copy-webpack-plugin": "^5.0.4",
     "cross-env": "^6.0.2",
     "css-loader": "^3.2.0",
+    "ejs": "^2.7.1",
     "ejs-loader": "^0.3.5",
     "eslint": "^6.5.1",
     "eslint-loader": "^3.0.2",

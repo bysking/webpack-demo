@@ -10,7 +10,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const GenerateApiConfigFileWebpackPlugin = require('generate-api-config-file-webpack-plugin')
+const GenerateApiConfigFileWebpackPlugin = require('./generate-api-config-file-webpack-plugin')
 const { fileConfig } = require('./apiFileConfig')
 const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
 console.log('node环境', process.env.ENV)
