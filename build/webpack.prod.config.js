@@ -10,6 +10,10 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const TerserJSPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+const GenerateApiConfigFileWebpackPlugin = require('generate-api-config-file-webpack-plugin')
+const { fileConfig } = require('./apiFileConfig')
+const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
+console.log('node环境', process.env.ENV)
 
 module.exports = merge(baseConfig, {
   mode: 'production',
@@ -51,8 +55,8 @@ module.exports = merge(baseConfig, {
     ]
   },
   plugins: [
-    // 自定义插件生成html模板文件
-
+    // 自定义插件生成apicloud的config.xml模板入口文件 根据运行环境选择文件配置中的某一项来生成config.xml
+    new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV),
     // 定义生产环境的全局变量
     new webpack.DefinePlugin({
       'process.env.RUN_DEVELOPMENT': JSON.stringify('production'), // 可以在当前文件开头出自定义变量，这里放入变量，在代码中使用，当前为开发模式所以devlopment生产环境模式类似

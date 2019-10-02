@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require("html-webpack-plugin")
 const path = require('path')
 const webpack = require('webpack')
 const apis = require('./apis')
+const { fileConfig } = require('./apiFileConfig')
+const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
+console.log('node环境', process.env.ENV)
 
 module.exports = merge(webpackBaseConfig, {
   mode: "development", // 指定模式，不要压缩，丑化
@@ -43,6 +46,7 @@ module.exports = merge(webpackBaseConfig, {
     ]
   },
   plugins: [
+    new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV),
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../dist/index.html',
