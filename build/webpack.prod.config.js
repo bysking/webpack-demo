@@ -16,7 +16,8 @@ module.exports = merge(baseConfig, {
   output: {
     path: path.resolve(__dirname, '../widget/code/dist/'),
     publicPath: './dist',
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    chunkFilename: '[name].[hash].chunk.js'
   },
   module: {
     rules: [

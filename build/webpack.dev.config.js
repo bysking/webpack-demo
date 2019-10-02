@@ -10,7 +10,9 @@ module.exports = merge(webpackBaseConfig, {
   mode: "development", // 指定模式，不要压缩，丑化
   devtool: '#source-map', // 方便调试代码行
   output: {
-    filename: '[name].js'
+    filename: '[name].js',
+    publicPath: './',
+    chunkFilename: '[name].chunk.js'
   },
   module: {
     rules: [
