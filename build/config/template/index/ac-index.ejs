@@ -11,19 +11,15 @@
 
 <body>
   <div id="app"></div>
-  <% if (env === 'dev') { %>
-  <script src="./localIp.js"></script>
-  <% } %>
-  <script src="./util.js"></script>
   <script>
-    var _env = '<%= env %>'; // 环境
+    var _env = '<%= process.env.env %>'; // 环境
     var _system; // 系统
     var _enterUrl = window.enterUrl || 'widget://code/index.html';
     var _isShowUpgradeTip = false; // 是否显示升级提示
     var _hasEntered = false; // 是否已进入主界面
 
     apiready = function () {
-      $util.log('env:', _env)
+      // $util.log('env:', _env)
       init();
       if (_env === 'dev') {
         enter();

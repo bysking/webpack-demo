@@ -7,7 +7,7 @@
     "dev": "webpack-dev-server --hot --inline --compress --content-base ./dist --config build/webpack.dev.config.js --host 0.0.0.0",
     "test": "webpack --config build/webpack.dev.config.js",
     "bysking": "webpack --config build/webpack.dev.config.js",
-    "build": "webpack --config build/webpack.prod.config.js"
+    "build": "cross-env env=dev webpack --config build/webpack.prod.config.js"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,9 @@
     "babel-loader": "^8.0.6",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.0.4",
+    "cross-env": "^6.0.2",
     "css-loader": "^3.2.0",
+    "ejs-loader": "^0.3.5",
     "eslint": "^6.5.1",
     "eslint-loader": "^3.0.2",
     "eslint-plugin-html": "^6.0.0",

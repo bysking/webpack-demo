@@ -55,8 +55,8 @@ module.exports = merge(baseConfig, {
 
     // 定义生产环境的全局变量
     new webpack.DefinePlugin({
-      'process.env': JSON.stringify(process.env), // 给源代码全局传自定义的变量，还可以是自定义的文件
       'process.env.RUN_DEVELOPMENT': JSON.stringify('production'), // 可以在当前文件开头出自定义变量，这里放入变量，在代码中使用，当前为开发模式所以devlopment生产环境模式类似
+      'process.env.env': JSON.stringify('production'), // 可以在当前文件开头出自定义变量，这里放入变量，在代码中使用，当前为开发模式所以devlopment生产环境模式类似
       'process.env.ENV': JSON.stringify(process.env.ENV), // api接口的动态导出
       // 。。。。还可以配置其他导入文件，版本号，默认用户名json文件
     }),
@@ -80,8 +80,11 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../index.html', // 注意与output.path以及publicPath的关系
-      template: path.resolve(__dirname, './config/template/index/vue-index.ejs'),
-      injetc: false
+      template: `!!ejs-loader!${path.resolve(__dirname, './config/template/index/ac-index.ejs')}`,
+      // template: `!!ejs-loader!${path.resolve(__dirname, './config/index.ejs')}`,
+      injetc: false,
+      env: 'production',
+      hash: true
     }),
   ],
   optimization: { // 代码压缩丑化
