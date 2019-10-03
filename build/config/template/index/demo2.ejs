@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+    content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+  <title>Hello APP</title>
+  <!-- <link rel="stylesheet" type="text/css" href="./css/api.css" /> -->
+  <style type="text/css">
+    html,
+    body {
+      height: 100%;
+    }
+
+    .wrap {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-flex-flow: column;
+    }
+
+    header {
+      height: 44px;
+      width: 100%;
+      text-align: center;
+      background-color: #81a9c3;
+      color: #fff;
+      line-height: 44px;
+      font-size: 20px;
+    }
+
+    .flex-1 {
+      -webkit-box-flex: 1;
+      -webkit-flex: 1;
+    }
+
+    footer {
+      height: 30px;
+      width: 100%;
+      background-color: #81a9c3;
+      color: white;
+      line-height: 30px;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="wrap">
+  <header>APICloud</header>
+  <section class="flex-1">
+  </section>
+  <footer>Copyright &copy;<span id="year"></span></footer>
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript">
+    var _env = '<%= process.env.env %>'; // 环境
+    var _system; // 系统
+    var _enterUrl = window.enterUrl || 'widget://code/index.html';
+    var _isShowUpgradeTip = false; // 是否显示升级提示
+    var _hasEntered = false; // 是否已进入主界面
+    apiready = function () {
+      init();
+    }
+
+    // 初始化配置
+    function init () {
+      _system = api.systemType
+
+      api.parseTapmode();
+
+      // 设置状态栏样式
+      api.setStatusBarStyle({
+        style: "dark"
+      });
+
+      // 保持屏幕长亮
+      api.setKeepScreenOn({
+        keepOn: true
+      });
+
+      // api.addEventListener({
+      //     name: 'keyback'
+      //   },
+      //   function (ret, err) {
+      //     api.closeWidget({}); // 应用管理关闭指定widget，也可以关闭应用
+      //   }
+      // );
+
+      // 监听网络
+      api.addEventListener({
+          name: "offline"
+        },
+        function (ret, err) {
+          api.alert({
+              msg: "网络连接异常，请确保网络正常后，再重试。"
+            },
+            function (ret, err) {}
+          );
+        }
+      );
+
+      // 云修复
+      api.addEventListener({
+          name: "smartupdatefinish"
+        },
+        function (ret, err) {
+          api.rebootApp();
+        }
+      );
+
+      api.addEventListener({
+        name: 'resume'
+      }, function (ret, err) {
+        if (_env === 'dev') {
+          return
+        }
+
+        if (_system === 'ios' || !_isShowUpgradeTip) {
+          checkVersion();
+        }
+      });
+
+      enter()
+    }
+
+    function enter() { // 打开页面
+      // 移除启动页
+      api.removeLaunchView({
+        animation: {
+          type: "fade",
+          duration: 400
+        }
+      });
+
+      if (!_hasEntered) {
+        openWin({
+          url: _enterUrl,
+          reload: true
+        });
+        _hasEntered = true
+      }
+    }
+
+    function openWin(data) {
+      api.openWin({
+        name: 'index',
+        url: data.url,
+        pageParam: data.pageParam,
+        animation: data.animation ? data.animation : null,
+        allowEdit: !!data.allowEdit,
+        slidBackEnabled: !!data.slidBackEnabled,
+        reload: !!data.reload,
+        bounces: !!data.bounces
+      });
+    }
+
+</script>
+
+</html>

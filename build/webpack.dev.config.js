@@ -15,8 +15,9 @@ module.exports = merge(webpackBaseConfig, {
   devtool: '#source-map', // 方便调试代码行
   output: {
     filename: '[name].js',
-    publicPath: '/dist/',
-    chunkFilename: '[name].chunk.js'
+    publicPath: './dist/',
+    chunkFilename: '[name].chunk.js',
+    path: path.resolve(__dirname, '../widget/code/dist/')
   },
   module: {
     rules: [
@@ -51,7 +52,7 @@ module.exports = merge(webpackBaseConfig, {
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../index.html',
-      template: path.resolve(__dirname, './config/template/index/demo2.ejs'),
+      template: path.resolve(__dirname, './config/template/index/vue-index.ejs'),
       injetc: false
     }),
     new webpack.DefinePlugin({
