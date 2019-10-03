@@ -7,6 +7,7 @@ const webpack = require('webpack')
 const apis = require('./apis')
 const { fileConfig } = require('./apiFileConfig')
 const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
+const GenerateApiConfigFileWebpackPlugin = require('./generate-api-config-file-webpack-plugin')
 console.log('node环境', process.env.ENV)
 
 module.exports = merge(webpackBaseConfig, {
@@ -14,7 +15,7 @@ module.exports = merge(webpackBaseConfig, {
   devtool: '#source-map', // 方便调试代码行
   output: {
     filename: '[name].js',
-    publicPath: './',
+    publicPath: '/dist/',
     chunkFilename: '[name].chunk.js'
   },
   module: {
@@ -49,8 +50,8 @@ module.exports = merge(webpackBaseConfig, {
     new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV),
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
-      filename: '../dist/index.html',
-      template: path.resolve(__dirname, './config/index/demo.ejs'),
+      filename: '../index.html',
+      template: path.resolve(__dirname, './config/template/index/demo2.ejs'),
       injetc: false
     }),
     new webpack.DefinePlugin({
@@ -64,8 +65,8 @@ module.exports = merge(webpackBaseConfig, {
   devServer: { // 什么是跨域 https://blog.csdn.net/qq_38128179/article/details/84956552
     open: true,
     stats: 'errors-only',
-    public: 'localhost:4001',
-    port: 4001,
+    public: 'localhost:4002',
+    port: 4002,
     proxy: {
       '/apione': {
         target: apis.apione, // apis里面配置了根据环境动态打包不同环境的地址

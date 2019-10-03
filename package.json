@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./dist --config build/webpack.dev.config.js --host 0.0.0.0",
+    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./ --config build/webpack.dev.config.js --host 0.0.0.0",
     "test": "webpack --config build/webpack.dev.config.js",
     "bysking": "cross-env env=dev webpack --config build/webpack.dev.config.js",
     "build": "cross-env env=prod webpack --config build/webpack.prod.config.js"
