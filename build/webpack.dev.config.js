@@ -8,6 +8,8 @@ const apis = require('./apis')
 const { fileConfig } = require('./apiFileConfig')
 const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
 const GenerateApiConfigFileWebpackPlugin = require('./generate-api-config-file-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 console.log('node环境', process.env.ENV)
 
 module.exports = merge(webpackBaseConfig, {
@@ -48,11 +50,20 @@ module.exports = merge(webpackBaseConfig, {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin(),
+
+    new CopyWebpackPlugin([ // 上一个清理完后需要把代码中赖的资源赋值到apicloud和webpack打包目录相同的目录层级
+      {
+        from: path.resolve(__dirname, '../static'), // 源
+        to: path.resolve(__dirname, '../widget/code/static'), // 目标
+        ignore: ['*.png']
+      }
+    ]),
     new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV),
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
-      filename: '../index.html',
-      template: path.resolve(__dirname, './config/template/index/vue-index.ejs'),
+      filename: '../index.html', // vue入口文件放在在output.path定义的上一级
+      template: path.resolve(__dirname, './config/template/index/vue-index.ejs'), // 入口模板
       injetc: false
     }),
     new webpack.DefinePlugin({

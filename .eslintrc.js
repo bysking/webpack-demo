@@ -1,7 +1,13 @@
 module.exports = {
-  extends: 'standard',
-  parser: 'babel-eslint',
-  plugins: ['html', 'standard'],
+  // extends: ['standard'],
+  extends: ['standard', "plugin:vue/recommended"],
+  // parser: 'babel-eslint',
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "ecmaVersion": 2017,
+    "sourceType": "module"
+  },
+  plugins: ['html', 'standard', "vue"],
   rules: {
     indent: ['error', 2, { SwitchCase: 1 }],
     camelcase: 0,

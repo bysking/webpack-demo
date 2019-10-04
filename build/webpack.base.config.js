@@ -77,18 +77,19 @@ module.exports = {
     new webpackTransformModulesPlugin() // https://www.jianshu.com/p/d9fdf666e5fa
   ],
   resolve: { // 配置路径别名
-    extensions: ['.js'], // 别名可使用范围？
+    extensions: ['.js', 'vue'], // 别名可使用范围？
     // 当遇到  require('./data')  这样的导入语句时，Webpack 会先去寻找
     // ./data.js  文件，如果该文件不存在就去寻找  ./data.json  文件， 如果还是找不到就报错。
     alias: {
-      '@': path.join(__dirname, '../src') // 路径别名
+      '@': path.join(__dirname, '../src'), // 路径别名
+      '~': path.join(__dirname, '../static') // 路径别名
     }
   },
   externals: {
 
     // 假设：我们开发了一个自己的库，里面引用了lodash这个包，经过webpack打包的时候，发现如果把这个lodash包打入进去，打包文件就会非常大。
     // 那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个lodash，需要用户环境提供。比如下面的
-    // vue: 'Vue',
+    vue: 'Vue',
     // iview: 'iview',
     // 'vue-router': 'VueRouter',
     // vuex: 'Vuex',

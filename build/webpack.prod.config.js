@@ -84,7 +84,7 @@ module.exports = merge(baseConfig, {
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../index.html', // 注意与output.path以及publicPath的关系
-      template: `!!ejs-loader!${path.resolve(__dirname, './config/template/index/demo.ejs')}`,
+      template: `!!ejs-loader!${path.resolve(__dirname, './config/template/index/vue-index.ejs')}`,
       // template: `!!ejs-loader!${path.resolve(__dirname, './config/index.ejs')}`,
       injetc: false,
       env: 'production',
