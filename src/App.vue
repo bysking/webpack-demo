@@ -10,7 +10,7 @@
 export default {
   data () {
     return {
-      msg: '12300000'
+      msg: '12300888888888888000'
     }
   }
 }

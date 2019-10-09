@@ -1,0 +1,1 @@
+window.enterUrl = "http://192.168.179.72:4002"

@@ -52,7 +52,11 @@
     <footer>Copyright &copy;<span id="year"></span></footer>
 </body>
 <script type="text/javascript" src="./script/api.js"></script>
+<% if (env === 'dev') { %>
+<script src="./ip.js"></script>
+<% } %>
 <script type="text/javascript">
+    console.log(window.enterUrl)
     apiready = function() {
 
         var header = $api.dom('header'); // 获取 header 标签元素
@@ -68,7 +72,7 @@
         api.openFrame({
             name: 'main',
             // url: 'html/main.html',
-            url: './code/index.html',
+            url: window.enterUrl || './code/index.html',
             bounces: true,
             rect: { // 推荐使用Margin布局，用于适配屏幕的动态变化
                 marginTop: headerH, // main页面距离win顶部的高度

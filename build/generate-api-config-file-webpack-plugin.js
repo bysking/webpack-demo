@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const ejs = require('ejs');
-const chalk = require('chalk');
+const ejs = require('ejs')
+const chalk = require('chalk')
+const { getLocalIp } = require('./utils')
 class GenerateApiConfigFileWebpackPlugin {
   constructor (options, env = 'dev') {
     this._config = options
@@ -14,7 +15,7 @@ class GenerateApiConfigFileWebpackPlugin {
       setTimeout(() => {
         console.log(
           chalk.magenta(
-            `apicloud的config.xml入口文件编译完成`
+            `apicloud的config.xml入口文件编译完成,局域网ip: ${getLocalIp()}`
           )
         );
       }, 300)
@@ -25,8 +26,8 @@ class GenerateApiConfigFileWebpackPlugin {
     // console.log(this._config)
     this._config.forEach(item => {
       const { modelPath, generateFilePath, params = null } = item;
-      console.log(path.join(__dirname, modelPath))
-      console.log(path.resolve(__dirname, modelPath))
+      // console.log(path.join(__dirname, modelPath))
+      // console.log(path.resolve(__dirname, modelPath))
       const str = fs.readFileSync(
         path.join(__dirname, modelPath),
         'utf8'
