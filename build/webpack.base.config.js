@@ -91,7 +91,7 @@ module.exports = {
     // 那么我们就可以externals的方式引入。也就是说，自己的库本身不打包这个lodash，需要用户环境提供。比如下面的
     vue: 'Vue',
     // iview: 'iview',
-    // 'vue-router': 'VueRouter',
+    'vue-router': 'VueRouter',
     // vuex: 'Vuex',
     fastclick: 'window.FastClick',
   }

@@ -1,15 +1,18 @@
-
 <template>
   <div>
-    <router-view />
+    {{ name }}8888888888888
   </div>
 </template>
 <script>
 export default {
+  name: 'Login',
   data () {
     return {
-      msg: '测试数据'
+      name: 'login'
     }
   }
 }
 </script>
+<style scoped>
+
+</style>

@@ -6,7 +6,8 @@ import '@/assets/dialog.styl'
 import Vue from 'vue'
 import App from './App.vue'
 import fastclick from 'fastclick'
-
+import { router } from './router/index'
+Vue.use(router)
 Vue.config.productionTip = false
 
 // 适配iPhone X 状态栏
@@ -44,7 +45,7 @@ function initVue () {
   vm = new Vue({
     el: '#app',
     // store,
-    // router,
+    router,
     render: h => h(App)
   })
 }
