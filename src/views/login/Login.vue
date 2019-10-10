@@ -1,6 +1,9 @@
 <template>
-  <div>
-    {{ name }}8888888888888
+  <div
+    v-fixStatusBar
+    v-fixTabBar
+  >
+    <div>{{ name }}</div>
     <button @click="index">
       主页
     </button>

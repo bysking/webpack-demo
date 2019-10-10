@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div
+    v-fixStatusBar
+    v-fixTabBar
+  >
     <div>
       {{ name }}
     </div>
