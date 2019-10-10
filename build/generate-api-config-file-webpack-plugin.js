@@ -4,15 +4,16 @@ const ejs = require('ejs')
 const chalk = require('chalk')
 const { getLocalIp } = require('./utils')
 class GenerateApiConfigFileWebpackPlugin {
-  constructor (options, env = 'dev') {
+  constructor (options, env = 'dev', isWebpackDev = false) {
     this._config = options
     this._env = env
+    this._isWebpackDev = isWebpackDev
     this.createFile()
   }
 
   apply(compiler) {
     compiler.hooks.done.tap('GenerateApiConfigFileWebpackPlugin', (stats) => {
-      setTimeout(() => {
+      this._isWebpackDev && setTimeout(() => {
         console.log(
           chalk.magenta(
             `apicloud的config.xml入口文件编译完成,局域网ip: ${getLocalIp()}`

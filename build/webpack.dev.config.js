@@ -10,16 +10,16 @@ const fileCFG = fileConfig[process.env.ENV] // config.xml的生成
 const GenerateApiConfigFileWebpackPlugin = require('./generate-api-config-file-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-console.log('node环境', process.env.ENV)
+const { getLocalIp } = require('./utils')
 
 module.exports = merge(webpackBaseConfig, {
   mode: "development", // 指定模式，不要压缩，丑化
   devtool: '#source-map', // 方便调试代码行
   output: {
     filename: '[name].js',
-    publicPath: './dist/',
-    chunkFilename: '[name].chunk.js',
-    path: path.resolve(__dirname, '../widget/code/dist/')
+    publicPath: '/dist/',
+    chunkFilename: '[name].chunk.js'
+    // path: path.resolve(__dirname, '../widget/code/dist/')
   },
   module: {
     rules: [
@@ -50,16 +50,15 @@ module.exports = merge(webpackBaseConfig, {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(),
+    // new CleanWebpackPlugin(),
 
-    new CopyWebpackPlugin([ // 上一个清理完后需要把代码中赖的资源赋值到apicloud和webpack打包目录相同的目录层级
-      {
-        from: path.resolve(__dirname, '../static'), // 源
-        to: path.resolve(__dirname, '../widget/code/static'), // 目标
-        ignore: ['*.png']
-      }
-    ]),
-    new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV),
+    // new CopyWebpackPlugin([ // 上一个清理完后需要把代码中赖的资源赋值到apicloud和webpack打包目录相同的目录层级
+    //   {
+    //     from: path.resolve(__dirname, '../static'), // 源
+    //     to: path.resolve(__dirname, '../widget/code/static'), // 目标
+    //     ignore: ['*.png']
+    //   }
+    // ]),
     new HtmlWebpackPlugin({ // 打包后需要利用自己的模板，生成index.html文件并且插入打包后的入口文件
       title: 'bysking-webpack-demo',
       filename: '../index.html', // vue入口文件放在在output.path定义的上一级
@@ -71,13 +70,14 @@ module.exports = merge(webpackBaseConfig, {
       'process.env.RUN_DEVELOPMENT': JSON.stringify('development'), // 可以在当前文件开头出自定义变量，这里放入变量，在代码中使用，当前为开发模式所以devlopment生产环境模式类似
       'process.env.ENV': JSON.stringify(process.env.ENV), // api接口的动态导出
       // 。。。。还可以配置其他导入文件，版本号，默认用户名json文件
-    })
+    }),
+    new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV, true),
   ],
   //设置跨域代理 同源策略： 请求url与当前页面的协议 主机名 端口任意一个不同即为跨域
   devServer: { // 什么是跨域 https://blog.csdn.net/qq_38128179/article/details/84956552
     open: true,
     stats: 'errors-only',
-    public: 'localhost:4002',
+    public: `http://${getLocalIp()}:4002`, // 此处就直接通过局域网打开，这样手机端和网页端同一个入口，编译完成自动打开地址，不然网页端从localhost：4002打开，手机端从局域网打开就会造成手机端无法热更新，或者把此行代码注释掉显然都从局域网打开更加方便
     port: 4002,
     proxy: {
       '/apione': {

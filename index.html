@@ -1,29 +1,29 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,initial-scale=1.0,width=device-width" />
-    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
-    <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/libs/cube.min.css" type="text/css" />
-    <script src="/static/libs/polyfill.min.js"></script>
-    <script src="/static/libs/vue.js"></script>
-    <script src="/static/libs/vuex.min.js"></script>
-    <script src="/static/libs/vue-router.min.js"></script>
-    <script src="/static/libs/iconfont.js"></script>
-    <script src="/static/libs/fastclick.js"></script>
-    <script src="/static/libs/md5.min.js"></script>
+    <title>
+        bysking-webpack-demo
+    </title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./static/libs/cube.min.css" type="text/css" />
+    
+    <script src="./static/libs/fastclick.js"></script>
+    <script src="./static/libs/polyfill.min.js"></script>
+    <script src="./static/libs/vue.min.js"></script>
+    <script src="./static/libs/vuex.min.js"></script>
+    <script src="./static/libs/vue-router.min.js"></script>
+    <script src="./static/libs/iconfont.js"></script>
+    <script src="./static/libs/md5.min.js"></script>
 </head>
 
 <body>
-  <div id="app"></div>
-</body>
-<script type="text/javascript">
-    window.onerror = function (msg) {
-      setTimeout(() => {
-        console.log(msg)
-      }, 2000)
-    }
-</script>
+    <div id="app"></div>
+    
+    <script type="text/javascript" src="/dist/main.js"></script>
+    
+    <script type="text/javascript" src="/dist/vender-exten.js"></script>
+    
+<script type="text/javascript" src="/dist/main.js"></script><script type="text/javascript" src="/dist/vender-exten.js"></script></body>
 
 </html>
