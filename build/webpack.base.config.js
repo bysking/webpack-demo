@@ -93,5 +93,6 @@ module.exports = {
     // iview: 'iview',
     // 'vue-router': 'VueRouter',
     // vuex: 'Vuex',
+    fastclick: 'window.FastClick',
   }
 }

@@ -10,7 +10,7 @@
 export default {
   data () {
     return {
-      msg: '今天实现了手机端和网页端的同步代码调试'
+      msg: '测试数据'
     }
   }
 }
