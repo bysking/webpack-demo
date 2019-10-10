@@ -60,6 +60,7 @@ window.apiready = function () {
 // 此处是为方便在PC调试页面
 setTimeout(function () {
   if (!vm) {
+    fastclick.attach(document.body)
     initVue()
   }
 }, 2000)
