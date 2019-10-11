@@ -71,7 +71,6 @@ function clearLoginData () {
   if (getBrowserState()) {
     for (const i in Keys) {
       if (Keys[i] === 'provinces') continue // 城市数据不用移除，因为会经常用到，与用户无关
-      console.log(Keys[i])
       localStorage.removeItem(Keys[i])
     }
   } else {

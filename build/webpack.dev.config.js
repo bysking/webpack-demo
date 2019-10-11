@@ -77,7 +77,7 @@ module.exports = merge(webpackBaseConfig, {
   devServer: { // 什么是跨域 https://blog.csdn.net/qq_38128179/article/details/84956552
     open: true,
     stats: 'errors-only',
-    public: `http://${getLocalIp()}:4002`, // 此处就直接通过局域网打开，这样手机端和网页端同一个入口，编译完成自动打开地址，不然网页端从localhost：4002打开，手机端从局域网打开就会造成手机端无法热更新，或者把此行代码注释掉显然都从局域网打开更加方便
+    // public: `http://${getLocalIp()}:4002`, // 此处就直接通过局域网打开，这样手机端和网页端同一个入口，编译完成自动打开地址，不然网页端从localhost：4002打开，手机端从局域网打开就会造成手机端无法热更新，或者把此行代码注释掉显然都从局域网打开更加方便
     port: 4002,
     proxy: {
       '/apione': {

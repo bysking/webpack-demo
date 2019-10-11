@@ -92,7 +92,7 @@ module.exports = {
     vue: 'Vue',
     // iview: 'iview',
     'vue-router': 'VueRouter',
-    // vuex: 'Vuex',
+    vuex: 'Vuex',
     fastclick: 'window.FastClick',
   }
 }

@@ -8,6 +8,7 @@ import App from './App.vue'
 import fastclick from 'fastclick'
 import { router } from './router/index'
 import { setBrowserState } from '@/libs/enum'
+import store from './store'
 Vue.use(router)
 Vue.config.productionTip = false
 
@@ -46,10 +47,10 @@ setBrowserState(true) // 一开始默认设置运行在浏览器上
 function initVue () {
   vm = new Vue({
     el: '#app',
-    // store,
+    store,
     router,
     render: h => h(App)
-  })
+  }).$mount('#app')
 }
 
 window.apiready = function () {

@@ -18,9 +18,23 @@
     <button @click="clearData">
       清除数据
     </button>
+    <button @click="testStore">
+      测试store dispatch
+    </button>
+    <button @click="testStoreAction">
+      测试mapAction
+    </button>
+    <div>
+      mapGetters-userInfo: {{ userInfo }}
+    </div>
+    <div>
+      mapGetters-token: {{ token }}
+    </div>
   </div>
 </template>
 <script>
+// import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import astore from '@/libs/astore'
 export default {
   name: 'Home',
@@ -29,7 +43,21 @@ export default {
       name: 'home'
     }
   },
+  computed: {
+    ...mapGetters(['token', 'userInfo'])
+  },
   methods: {
+    ...mapActions(['setToken', 'setUser']), // mapAction的使用
+    async testStore () {
+      console.log('测试dispatch')
+      await this.$store.dispatch('setToken', 'dispatch-token')
+      await this.$store.dispatch('setUser', 'dispatch-bysking')
+    },
+    testStoreAction () {
+      console.log('测试mapActions')
+      this.setToken('mapActions-token')
+      this.setUser('mapActions-bysking')
+    },
     setData () {
       console.log('setData userInfo')
       astore.setData('userInfo', { name: 'bc', test: '123' })
