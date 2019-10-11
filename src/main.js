@@ -7,6 +7,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import fastclick from 'fastclick'
 import { router } from './router/index'
+import { setBrowserState } from '@/libs/enum'
 Vue.use(router)
 Vue.config.productionTip = false
 
@@ -41,6 +42,7 @@ const addMobileListener = () => {
   )
 }
 var vm
+setBrowserState(true) // 一开始默认设置运行在浏览器上
 function initVue () {
   vm = new Vue({
     el: '#app',
@@ -51,7 +53,7 @@ function initVue () {
 }
 
 window.apiready = function () {
-  // setBrowserState(false)
+  setBrowserState(false) // 此处设置运行设备在手机端，修改enum的设备状态值用来区分数据持久化的调用接口
   fastclick.attach(document.body)
   initVue()
   addMobileListener()

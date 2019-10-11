@@ -9,9 +9,19 @@
     <button @click="login">
       登录
     </button>
+    <button @click="setData">
+      测试设置数据
+    </button>
+    <button @click="getData">
+      测试获取数据
+    </button>
+    <button @click="clearData">
+      清除数据
+    </button>
   </div>
 </template>
 <script>
+import astore from '@/libs/astore'
 export default {
   name: 'Home',
   data () {
@@ -20,6 +30,19 @@ export default {
     }
   },
   methods: {
+    setData () {
+      console.log('setData userInfo')
+      astore.setData('userInfo', { name: 'bc', test: '123' })
+    },
+    getData () {
+      const data = astore.getData('userInfo')
+      console.log('userInfo', data)
+    },
+    clearData () {
+      astore.clearLoginData()
+      const data = astore.getData('userInfo')
+      console.log('重新获取---', data)
+    },
     login () {
       this.$router.push({ name: 'login' })
     }
