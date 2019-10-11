@@ -1,7 +1,6 @@
 <template>
   <div
     v-fixStatusBar
-    v-fixTabBar
     class="container"
   >
     <div class="title">
