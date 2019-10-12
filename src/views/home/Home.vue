@@ -24,6 +24,12 @@
     <button @click="testStoreAction">
       测试mapAction
     </button>
+    <button @click="testSaas">
+      测试saas
+    </button>
+    <button @click="testPass">
+      测试sdk
+    </button>
     <div>
       mapGetters-userInfo: {{ userInfo }}
     </div>
@@ -36,6 +42,8 @@
 // import { mapState, mapActions, mapMutations, mapGetters } from 'vuex'
 import { mapActions, mapGetters } from 'vuex'
 import astore from '@/libs/astore'
+import { saasApi, passApi } from '@/libs/api'
+import { reqSaas, reqPass } from '@/libs/http'
 export default {
   name: 'Home',
   data () {
@@ -47,6 +55,16 @@ export default {
     ...mapGetters(['token', 'userInfo'])
   },
   methods: {
+    async testSaas () {
+      console.log('测试saas')
+      const res = await reqSaas(saasApi.bysking)
+      console.log(res)
+    },
+    async testPass () {
+      console.log('测试pass')
+      const res = await reqPass(passApi.baidu)
+      console.log(res)
+    },
     ...mapActions(['setToken', 'setUser']), // mapAction的使用
     async testStore () {
       console.log('测试dispatch')

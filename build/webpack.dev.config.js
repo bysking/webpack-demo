@@ -81,14 +81,14 @@ module.exports = merge(webpackBaseConfig, {
     // public: `http://${getLocalIp()}:4002`, // 此处就直接通过局域网打开，这样手机端和网页端同一个入口，编译完成自动打开地址，不然网页端从localhost：4002打开，手机端从局域网打开就会造成手机端无法热更新，或者把此行代码注释掉显然都从局域网打开更加方便
     port: 4002,
     proxy: {
-      '/apione': {
-        target: apis.apione, // apis里面配置了根据环境动态打包不同环境的地址
-        pathRewrite: { '^/apione': '/' },
+      '/saas': {
+        target: apis.sass, // apis里面配置了根据环境动态打包不同环境的地址
+        pathRewrite: { '^/saas': '/' },
         changeOrigin: true
       },
-      '/apitwo': {
-        target: apis.apitwo,
-        pathRewrite: { '^/apitwo': '/' },
+      '/pass': {
+        target: apis.passport,
+        pathRewrite: { '^/pass': '/' },
         changeOrigin: true
       },
       '/apithree': {
