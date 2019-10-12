@@ -12,14 +12,12 @@ import store from './store'
 Vue.use(router)
 Vue.config.productionTip = false
 
-// 适配iPhone X 状态栏
 Vue.directive('fixStatusBar', {
   bind (el) {
     el.style.paddingTop = typeof api === 'undefined' ? '0px' : api.safeArea.top + 'px'
   }
 })
 
-// 适配iPhone X 底部栏
 Vue.directive('fixTabBar', {
   bind (el) {
     el.style.paddingBottom = typeof api === 'undefined' ? '0px' : api.safeArea.bottom + 'px'
