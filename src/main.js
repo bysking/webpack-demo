@@ -4,6 +4,7 @@ import '@/assets/reset.styl'
 import '@/assets/dialog.styl'
 
 import Vue from 'vue'
+import './cube-ui'
 import App from './App.vue'
 import fastclick from 'fastclick'
 import { router } from './router/index'
