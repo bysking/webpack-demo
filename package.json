@@ -2,21 +2,16 @@
   "name": "demo-wepack",
   "version": "1.0.0",
   "description": "",
-  "author": "",
+  "main": "index.js",
   "scripts": {
-    "build": "cross-env env=prod webpack --config build/webpack.prod.config.js",
+    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./ --config build/webpack.dev.config.js --host 0.0.0.0",
     "test": "webpack --config build/webpack.dev.config.js",
     "bysking": "cross-env env=dev webpack --config build/webpack.dev.config.js",
-    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./ --config build/webpack.dev.config.js --host 0.0.0.0"
+    "build": "cross-env env=prod webpack --config build/webpack.prod.config.js"
   },
-  "main": "index.js",
-  "dependencies": {
-    "axios": "^0.19.0",
-    "cube-ui": "~1.12.15",
-    "dayjs": "^1.8.16",
-    "vue": "^2.6.10",
-    "vue-template-compiler": "^2.6.10"
-  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -46,7 +41,6 @@
     "stylus-loader": "^3.0.2",
     "terser-webpack-plugin": "^2.1.2",
     "url-loader": "^2.1.0",
-    "vue-cli-plugin-cube-ui": "^0.2.5",
     "vue-loader": "^15.7.1",
     "vue-style-loader": "^4.1.2",
     "webpack": "^4.41.0",
@@ -56,19 +50,10 @@
     "webpack-notifier": "^1.8.0",
     "webpack-transform-modules-plugin": "^0.4.4"
   },
-  "keywords": [],
-  "license": "ISC",
-  "transformModules": {
-    "cube-ui": {
-      "transform": "cube-ui/lib/${member}",
-      "kebabCase": true,
-      "style": {
-        "ignore": [
-          "create-api",
-          "better-scroll",
-          "locale"
-        ]
-      }
-    }
+  "dependencies": {
+    "axios": "^0.19.0",
+    "dayjs": "^1.8.16",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
   }
 }
