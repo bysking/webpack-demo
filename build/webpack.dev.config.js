@@ -69,6 +69,7 @@ module.exports = merge(webpackBaseConfig, {
       'process.env': JSON.stringify(process.env), // 给源代码全局传自定义的变量，还可以是自定义的文件
       'process.env.RUN_DEVELOPMENT': JSON.stringify('development'), // 可以在当前文件开头出自定义变量，这里放入变量，在代码中使用，当前为开发模式所以devlopment生产环境模式类似
       'process.env.ENV': JSON.stringify(process.env.ENV), // api接口的动态导出
+      'process.API_CFG': JSON.stringify(apis), // api接口的动态导出
       // 。。。。还可以配置其他导入文件，版本号，默认用户名json文件
     }),
     new GenerateApiConfigFileWebpackPlugin(fileCFG, process.env.ENV, true),
