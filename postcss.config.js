@@ -1,7 +1,7 @@
 module.exports = {
   plugins: {
     'postcss-px-to-viewport': {
-      viewportWidth: 375,
+      viewportWidth: 750,
       unitPrecision: 3,
       viewportUnit: 'vw',
       selectorBlackList: ['.ignore', '.hairlines'],
