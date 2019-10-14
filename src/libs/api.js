@@ -1,9 +1,9 @@
 const saasApi = {
-  bysking: { path: 'user', method: 'get' }
+  bysking: { path: 'sug', method: 'get' }
 }
 const sdkApi = {}
 const passApi = {
-  baidu: { path: 'baidu', method: 'get' }
+  baidu: { path: 'sug', method: 'get' }
 }
 
 module.exports = {

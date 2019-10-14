@@ -26,7 +26,7 @@ class Http { // 新建立Http类，因为需要实现单例模式，代码架构
     const { path, method } = this._apiObj // 接口对象定义为由path和请求方法组成的对象如： { path: 'user_info', method: 'get' }
 
     if (!path || !['get', 'post', 'delete', 'put'].includes(method)) { // 参数合法性检查：对于path: 要求非空， 对于method要求范围在{get, post, delete, put} 内, 否则报错
-      aui.showErr('无效的apiObj')
+      aui.showToast('无效的apiObj')
       return
     }
 
@@ -81,11 +81,11 @@ class Http { // 新建立Http类，因为需要实现单例模式，代码架构
       }
       if (!isHideErrMsg) { // 展示错误
         if (ErrNo && ErrMsg) { // 这里兼容PC，手机端的错误返回字段
-          aui.showErr(ErrMsg)
+          aui.showToast(ErrMsg)
         }
 
         if (err_code && err_msg) {
-          aui.showErr(err_msg)
+          aui.showToast(err_msg)
         }
       }
 
@@ -195,7 +195,7 @@ const http = (() => { // 立即执行函数，定义后直接执行
 export function reqPass (...args) {
   // 处理登录注册
   // 修改密码等操作
-  const baseUrl = getBrowserState() ? '/passport/' : ApiCfg.passport // 因为浏览器跨域会匹配/passport/ 转到 ApiCfg.passport，不能直接请求ApiCfg.passport
+  const baseUrl = getBrowserState() ? '/pass/' : ApiCfg.passport // 因为浏览器跨域会匹配/passport/ 转到 ApiCfg.passport，不能直接请求ApiCfg.passport
   return http.getInstance().req([baseUrl, ...args])
 }
 export function reqSaas (...args) {
@@ -209,6 +209,7 @@ export function reqSaas (...args) {
   //   baseUrl = env || ApiCfg.saas
   // }
   const baseUrl = getBrowserState() ? '/saas/' : ApiCfg.saas // 因为浏览器跨域会匹配/saas/ 转到 ApiCfg.saas，不能直接请求ApiCfg.saas, 手机端则不存在这种现象
+  console.log('baseUrl', baseUrl)
   return http.getInstance().req([baseUrl, ...args])
 }
 export function reqSdk (...args) {

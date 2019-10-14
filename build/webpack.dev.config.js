@@ -82,7 +82,7 @@ module.exports = merge(webpackBaseConfig, {
     port: 4002,
     proxy: {
       '/saas': {
-        target: apis.sass, // apis里面配置了根据环境动态打包不同环境的地址
+        target: apis.saas, // apis里面配置了根据环境动态打包不同环境的地址
         pathRewrite: { '^/saas': '/' },
         changeOrigin: true
       },

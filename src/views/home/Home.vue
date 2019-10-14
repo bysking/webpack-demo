@@ -9,7 +9,7 @@
     <button @click="login">
       登录
     </button>
-    <button @click="setData">
+    <!-- <button @click="setData">
       测试设置数据
     </button>
     <button @click="getData">
@@ -23,19 +23,19 @@
     </button>
     <button @click="testStoreAction">
       测试mapAction
-    </button>
+    </button> -->
     <button @click="testSaas">
       测试saas
     </button>
     <button @click="testPass">
       测试sdk
     </button>
-    <div>
+    <!-- <div>
       mapGetters-userInfo: {{ userInfo }}
     </div>
     <div>
       mapGetters-token: {{ token }}
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
@@ -44,6 +44,7 @@ import { mapActions, mapGetters } from 'vuex'
 import astore from '@/libs/astore'
 import { saasApi, passApi } from '@/libs/api'
 import { reqSaas, reqPass } from '@/libs/http'
+import aui from '@/libs/aui'
 export default {
   name: 'Home',
   data () {
@@ -57,13 +58,26 @@ export default {
   methods: {
     async testSaas () {
       console.log('测试saas')
-      const res = await reqSaas(saasApi.bysking)
+      const params = {
+        // code: 'utf-8',
+        // q: '卫衣',
+        // callback: 'cb'
+        name: 0
+      }
+      const res = await reqSaas(saasApi.bysking, [], params)
       console.log(res)
+      aui.showToast('saas')
     },
     async testPass () {
       console.log('测试pass')
-      const res = await reqPass(passApi.baidu)
+      const params = {
+        code: 'utf-8',
+        q: '鞋',
+        callback: 'cb'
+      }
+      const res = await reqPass(passApi.baidu, [], params)
       console.log(res)
+      aui.showToast('paas')
     },
     ...mapActions(['setToken', 'setUser']), // mapAction的使用
     async testStore () {
