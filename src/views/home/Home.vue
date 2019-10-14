@@ -120,7 +120,6 @@ export default {
     left: 0
     right: 0
     bottom: 0
-    border: 3px solid red
     width: 100%
     height: 100%
 </style>
