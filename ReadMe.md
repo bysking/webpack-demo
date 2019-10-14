@@ -36,3 +36,4 @@ npm install --save-dev mini-css-extract-plugin
 npm i --save-dev copy-webpack-plugin clean-webpack-plugin
 12. 代码压缩优化
 npm i --save-dev optimize-css-assets-webpack-plugin terser-webpack-plugin
+13. 弹框 时点击 弹框外部关闭弹框 https://www.npmjs.com/package/vue-click-outside
