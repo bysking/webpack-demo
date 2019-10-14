@@ -9,6 +9,9 @@ import fastclick from 'fastclick'
 import { router } from './router/index'
 import { setBrowserState } from '@/libs/enum'
 import store from './store'
+import Cube from 'cube-ui'
+
+Vue.use(Cube)
 Vue.use(router)
 Vue.config.productionTip = false
 

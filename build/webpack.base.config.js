@@ -32,12 +32,26 @@ module.exports = {
           path.resolve(__dirname, '../src'), // 资源文件
           path.resolve(__dirname, '../node_modules/vueg') // 动画模块
         ],
-        loader: 'babel-loader?cacheDirectory=true' // 未修改文件不处理，性能
+        // loader: 'babel-loader?cacheDirectory=true' // 未修改文件不处理，性能
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            cacheDirectory: true
+          }
+        }
       },
       { // jsx
         test: /\.js[x]?$/, // babel-loader处理jsx或js文件解析-->es5
         exclude: /node_modules/, // 排除
-        loader: 'babel-loader?cacheDirectory=true' // 未修改文件不处理，性能
+        // loader: 'babel-loader?cacheDirectory=true' // 未修改文件不处理，性能
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            cacheDirectory: true
+          }
+        }
       },
       { // 图片文件处理
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/, // 这里正则不清楚(\?.*)?
@@ -82,7 +96,8 @@ module.exports = {
     // ./data.js  文件，如果该文件不存在就去寻找  ./data.json  文件， 如果还是找不到就报错。
     alias: {
       '@': path.join(__dirname, '../src'), // 路径别名
-      '~': path.join(__dirname, '../static') // 路径别名
+      '~': path.join(__dirname, '../static'), // 路径别名
+      'cube-ui': 'cube-ui/lib'
     }
   },
   externals: {
