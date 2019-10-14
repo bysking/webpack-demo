@@ -92,17 +92,27 @@ module.exports = merge(baseConfig, {
     }),
   ],
   optimization: { // 代码压缩丑化
+    minimizer: true,
     splitChunks: { // 分片，异步加载
+      chunks:'all',
       cacheGroups: {// 缓存组
-        commons: { // 按需打包抽离公共模块
-          test: /[\\/]node_modules[\\/]/, // 只抽取引入的node_modules文件的公共模块
-          name: 'vender-exten', // 要缓存的 分隔出来的 chunk 名称
-          chunks: 'all' // 对所有的chunk都进行缓存
+        // commons: { // 按需打包抽离公共模块
+        //   test: /[\\/]node_modules[\\/]/, // 只抽取引入的node_modules文件的公共模块
+        //   name: 'vender-exten', // 要缓存的 分隔出来的 chunk 名称
+        //   chunks: 'all' // 对所有的chunk都进行缓存
+        // }
+        common: {
+          minChunks: 2,
+          name: 'commons',
+          chunks: 'async',
+          priority: 10,
+          reuseExistingChunk: true,
+          enforce: true
         }
       }
     },
     runtimeChunk: {
-      name: 'runtime'
+      name: 'manifest'
     // 当更改app的时候runtime与（被分出的动态加载的代码）0.01e47fe5.js的名称(hash)不会改变，main的名称(hash)会改变。
     // 当更改component.js，main的名称(hash)不会改变，runtime与 (动态加载的代码) 0.01e47fe5.js的名称(hash)会改变。
 

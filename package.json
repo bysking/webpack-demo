@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env env=dev webpack-dev-server --hot --inline --compress --content-base ./ --config build/webpack.dev.config.js --host 0.0.0.0",
+    "dev": "cross-env env=dev webpack-dev-server --progress --hot --inline --compress --content-base ./ --config build/webpack.dev.config.js --host 0.0.0.0",
     "test": "webpack --config build/webpack.dev.config.js",
-    "bysking": "cross-env env=dev webpack --config build/webpack.dev.config.js",
-    "build": "cross-env env=prod webpack --config build/webpack.prod.config.js"
+    "bysking": "cross-env env=dev webpack --progress --config build/webpack.dev.config.js",
+    "build": "cross-env env=prod webpack --progress --config build/webpack.prod.config.js"
   },
   "keywords": [],
   "author": "",
@@ -58,18 +58,5 @@
     "dayjs": "^1.8.16",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
-  },
-  "transformModules": {
-    "cube-ui": {
-      "transform": "cube-ui/lib/${member}",
-      "kebabCase": true,
-      "style": {
-        "ignore": [
-          "create-api",
-          "better-scroll",
-          "locale"
-        ]
-      }
-    }
   }
 }
