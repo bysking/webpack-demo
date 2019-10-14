@@ -41,6 +41,21 @@ function getData (key) {
   }
   return data
 }
+// 从已经存储的数据域里面移除数据
+function clearData (key) {
+  // 数据获取后需要parse转化
+  try {
+    if (getBrowserState()) { // 浏览器
+      localStorage.removeItem(key)
+    } else { // 手机端
+      api.removePrefs({ // 调用api接口
+        key: key
+      })
+    }
+  } catch (err) {
+    console.log(err)
+  }
+}
 
 function setData (key, data) {
   if (arguments.length !== 2) return // 参数合法性检查
@@ -102,6 +117,7 @@ export default {
   Keys,
   init,
   setData,
+  clearData,
   getData,
   getToken,
   getUserInfo,

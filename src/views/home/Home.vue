@@ -4,38 +4,62 @@
     class="container"
   >
     <div class="title">
-      {{ name }}
+      webpack vue apicloud cube-ui 三端脚手架
     </div>
-    <button @click="login">
-      登录
-    </button>
-    <!-- <button @click="setData">
-      测试设置数据
-    </button>
-    <button @click="getData">
-      测试获取数据
-    </button>
-    <button @click="clearData">
-      清除数据
-    </button>
-    <button @click="testStore">
-      测试store dispatch
-    </button>
-    <button @click="testStoreAction">
-      测试mapAction
-    </button> -->
-    <button @click="testSaas">
-      测试saas
-    </button>
-    <button @click="testPass">
-      测试sdk
-    </button>
-    <!-- <div>
-      mapGetters-userInfo: {{ userInfo }}
+    <h1>路由测试</h1>
+    <div class="wrapper">
+      <button @click="login">
+        路由测试：页面切换（更改token测试路由守卫）
+      </button>
     </div>
-    <div>
-      mapGetters-token: {{ token }}
-    </div> -->
+    <h1>数据测试</h1>
+    <div class="wrapper">
+      <button @click="setData">
+        测试：保存数据到本地
+      </button>
+      <button @click="getData">
+        测试：获取保存的数据
+      </button>
+      <button @click="clearData">
+        清除保存的数据
+      </button>
+    </div>
+
+    <h1>全局通信测试</h1>
+    <div class="wrapper">
+      <button @click="testStore">
+        vuex测试:store dispatch
+      </button>
+      <button @click="testStoreAction">
+        vuex测试:mapAction
+      </button>
+    </div>
+
+    <h1>网络接口通信测试</h1>
+    <div class="wrapper">
+      <button @click="testSaas">
+        测试http请求：api
+      </button>
+      <button @click="testPass">
+        测试第三方请求：sdk
+      </button>
+    </div>
+
+    <h1>测试结果展示</h1>
+    <div class="wrapper">
+      <div class="text">
+        测试设置获取数据：mydata: {{ mydata }}
+      </div>
+      <div class="text">
+        mapGetters-userInfo: {{ userInfo }}
+      </div>
+      <div class="text">
+        mapGetters-token: {{ token }}
+      </div>
+    </div>
+    <h1 style="background-color: gray; color: white">
+      bysking
+    </h1>
   </div>
 </template>
 <script>
@@ -49,7 +73,8 @@ export default {
   name: 'Home',
   data () {
     return {
-      name: 'home'
+      name: 'home',
+      mydata: ''
     }
   },
   computed: {
@@ -92,16 +117,19 @@ export default {
     },
     setData () {
       console.log('setData userInfo')
-      astore.setData('userInfo', { name: 'bc', test: '123' })
+      astore.setData('mydata', { name: 'bc', test: '123' })
     },
     getData () {
-      const data = astore.getData('userInfo')
-      console.log('userInfo', data)
+      const mydata = astore.getData('mydata')
+      console.log('userInfo', mydata)
+      this.mydata = mydata
     },
     clearData () {
       astore.clearLoginData()
-      const data = astore.getData('userInfo')
-      console.log('重新获取---', data)
+      const mydata = astore.getData('mydata')
+      console.log('重新获取---', mydata)
+      astore.clearData('mydata')
+      this.mydata = astore.getData('mydata')
     },
     login () {
       this.$router.push({ name: 'login' })
@@ -113,7 +141,9 @@ export default {
   .title
     width: 100%
     height: 100px
-    background: gray
+    text-align center
+    line-height 100px
+    // background: gray
   .container
     position: fixed
     top: 0
@@ -122,4 +152,20 @@ export default {
     bottom: 0
     width: 100%
     height: 100%
+  h1
+    background green
+    color white
+    padding 20px 10px
+    text-align center
+  .wrapper
+    display flex
+    justify-content space-around
+    flex-direction column
+    margin: 20px 10px
+  .text
+    margin: 10px auto
+  .text:last-child
+    width: 100%
+    text-align center
+    border-bottom: 1px solid gray
 </style>

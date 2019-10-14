@@ -1,3 +1,5 @@
 node_modules
 dist
 widget/code/
+widget/config.xml
+widget/index.html
