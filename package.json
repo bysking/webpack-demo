@@ -51,7 +51,7 @@
     "webpack-transform-modules-plugin": "^0.4.4"
   },
   "dependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "dayjs": "^1.8.16",
     "vue": "^2.6.10",
     "vue-template-compiler": "^2.6.10"
